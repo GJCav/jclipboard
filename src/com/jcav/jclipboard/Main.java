@@ -19,7 +19,7 @@ public class Main {
         rd.setVisible(false);
 
         Provider provider = Provider.getCurrentProvider(true);
-        provider.register(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.VK_WINDOWS), listener -> {
+        provider.register(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.META_DOWN_MASK), listener -> {
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             Point mouse = MouseInfo.getPointerInfo().getLocation();
             int x = mouse.x, y = mouse.y;
