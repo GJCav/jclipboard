@@ -1,5 +1,5 @@
 # 高级剪切板
-### 功能接受
+### 功能介绍
 用于记录剪切板的历史，并在需要的时候复制剪切板记录中的内容
 
 ### 使用方法
@@ -20,3 +20,14 @@
 ### 获取方法
 1. 精简版（需要另外安装JRE）
 2. 完全版（自带JRE），解压即可
+
+## For developers
+### dependences:
+1. jkeymaster
+2. jna
+3. slf4j
+
+### license:
+This program is under Apache License 2.0
+
+See also [Apache License 2.0](LICENSE.html)
