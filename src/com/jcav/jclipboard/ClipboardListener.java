@@ -28,7 +28,7 @@ public class ClipboardListener {
                 }
             }
             try {
-                Thread.sleep(500);
+                Thread.sleep(Const.CLIPBOARD_LISTENING_STIME);
             } catch (Exception e) {
             }
         }
@@ -36,16 +36,18 @@ public class ClipboardListener {
     private String lastText = "";
     private BufferedImage lastImage = null;
     private int lastFileListHash = 0;
+    private DataStore store;
 
     private void processContext(Transferable context) throws IOException, UnsupportedFlavorException {
         if (context.isDataFlavorSupported(DataFlavor.stringFlavor)) {
             String newText = getClipboardAsText(context);
             if (lastText == null) {
                 lastText = newText;
+                store.addLog(newText);
             } else if (!lastText.equals(newText)) {
                 lastText = newText;
                 //System.out.println(newText);
-                //store.addLog(newText);
+                store.addLog(newText);
             }
 
         } else if (context.isDataFlavorSupported(DataFlavor.imageFlavor)) {
@@ -53,10 +55,10 @@ public class ClipboardListener {
 
             if (lastImage == null) {
                 lastImage = newImage;
-                //store.addLog(lastImage);
+                store.addLog(lastImage);
             } else if (!isSameImage(lastImage, newImage)) {
                 lastImage = newImage;
-                //store.addLog(lastImage);
+                store.addLog(lastImage);
             }
 
         } else if (context.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
@@ -65,7 +67,7 @@ public class ClipboardListener {
 
             if (lastFileListHash != list.hashCode()) {
                 lastFileListHash = preHashCode;
-                //store.addLog(list);
+                store.addLog(list);
             }
         }
     }
@@ -111,5 +113,9 @@ public class ClipboardListener {
 
     public void start(){
         new Thread(listener, "ClipboardListener").start();
+    }
+
+    public ClipboardListener(DataStore st){
+        store = st;
     }
 }
